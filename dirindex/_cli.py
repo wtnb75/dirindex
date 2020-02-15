@@ -123,7 +123,7 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
     with openresource(template, "templates") as tfp:
         tmpl = env.from_string(tfp.read())
     args = {
-        "basename": directory,
+        "root": directory,
         "dir": [], "file": [],
     }
     if recursive and single:
@@ -143,7 +143,7 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
         # output to each directory
         for root, dirs, files in os.walk(directory):
             args = {
-                "basename": root,
+                "root": root,
                 "dir": [], "file": [],
             }
             dirs = pattern_filter(dirs, pattern, hide)

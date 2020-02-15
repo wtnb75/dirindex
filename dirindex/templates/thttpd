@@ -4,12 +4,12 @@
 
   <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-    <title>Index of {{basename}}</title>
+    <title>Index of {{root}}</title>
   </head>
 
   <body bgcolor="#99cc99" text="#000000" link="#2020ff" vlink="#4040cc">
 
-    <h2>Index of {{basename}}</h2>
+    <h2>Index of {{root}}</h2>
 
     <pre>
 mode  links    bytes  last-changed  name

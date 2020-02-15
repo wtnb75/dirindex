@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
   <HEAD>
-    <TITLE>Index of {{basename}}</TITLE>
+    <TITLE>Index of {{root}}</TITLE>
     <style type="text/css">
     <!--
     .name, .mtime { text-align: left; }
@@ -13,7 +13,7 @@
     </style>
   </HEAD>
   <BODY>
-    <H1>Index of {{basename}}</H1>
+    <H1>Index of {{root}}</H1>
 <TABLE width="100%"><THEAD><TR>
 <TH class="name">Name</TH><TH class="mtime">Last modified</TH><TH class="size">Size</TH>
 </TR></THEAD>
