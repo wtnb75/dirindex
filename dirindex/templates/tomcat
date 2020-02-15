@@ -1,8 +1,8 @@
 <!doctype html><html>
 <head>
-<title>Directory Listing For [{{basename}}]</title>
+<title>Directory Listing For [{{root}}]</title>
 <style>body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style> </head>
-<body><h1>Directory Listing For [{{basename}}]</h1><hr class="line"><table width="100%" cellspacing="0" cellpadding="5" align="center">
+<body><h1>Directory Listing For [{{root}}]</h1><hr class="line"><table width="100%" cellspacing="0" cellpadding="5" align="center">
 <tr>
 <td align="left"><font size="+1"><strong>Filename</strong></font></td>
 <td align="center"><font size="+1"><strong>Size</strong></font></td>

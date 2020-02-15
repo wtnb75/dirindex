@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Index of {{basedir}}</title>
+<title>Index of {{root}}</title>
 <style type="text/css">
 a, a:active {text-decoration: none; color: blue;}
 a:visited {color: #48468F;}
@@ -18,7 +18,7 @@ div.foot { font: 90% monospace; color: #787878; padding-top: 4px;}
 </style>
 </head>
 <body>
-<h2>Index of {{basedir}}</h2>
+<h2>Index of {{root}}</h2>
 <div class="list">
 <table summary="Directory Listing" cellpadding="0" cellspacing="0">
 <thead><tr><th class="n">Name</th><th class="m">Last Modified</th><th class="s">Size</th><th class="t">Type</th></tr></thead>

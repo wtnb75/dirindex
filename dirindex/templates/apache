@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <html>
  <head>
-  <title>Index of {{basename}}</title>
+  <title>Index of {{root}}</title>
  </head>
  <body>
-<h1>Index of {{basename}}</h1>
+<h1>Index of {{root}}</h1>
 <ul>{% for i in dir %}
 <li><a href="{{i.name}}/"> {{i.name}}/</a></li>
 {%- endfor %}
