@@ -98,7 +98,10 @@ def mkent(fullpath, basedir):
 
 
 def openresource(filename, resource_base="templates"):
-    if os.path.exists(filename):
+    log.debug("filename: %s", filename)
+    if filename == "-":
+        return sys.stdin
+    elif os.path.exists(filename):
         return fileopen(None, filename, "r")
     return io.StringIO(pkgutil.get_data(__package__, os.path.join(resource_base, filename)).decode("utf-8"))
 
