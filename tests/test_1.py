@@ -1,4 +1,5 @@
 import os
+import sys
 import unittest
 from click.testing import CliRunner
 from dirindex._cli import cli
@@ -39,6 +40,7 @@ class Test1(unittest.TestCase):
         self.assertIn("lib", result.output)
         self.assertIn("cover", result.output)
 
+    @unittest.skipIf(sys.platform.startswith("win"), "Skip Windows")
     def testmake2(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
