@@ -1,6 +1,8 @@
 # Install
 
 - pip install dirindex
+- dirindex --help
+- or ... docker run ghcr.io/wtnb75/dirindex --help
 
 # Usage
 
