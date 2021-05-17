@@ -18,10 +18,10 @@
 <TH class="name">Name</TH><TH class="mtime">Last modified</TH><TH class="size">Size</TH>
 </TR></THEAD>
 <TBODY>
-{% for i in dir|sort(attribute=name) %}
+{% for i in dir %}
 <TR><TD class="name"><A HREF="{{i.name}}/">{{i.name}}/</A></TD><TD class="mtime">{{i.stat.st_mtime|strftime("%Y/%m/%d %H:%M")}}</TD><TD class="size">-</TD></TR>
 {% endfor %}
-{% for i in file|sort(attribute=name) %}
+{% for i in file %}
 <TR><TD class="name"><A HREF="{{i.name}}">{{i.name}}</A></TD><TD class="mtime">{{i.stat.st_mtime|strftime("%Y/%m/%d %H:%M")}}</TD><TD class="size">{{i.stat.st_size}}</TD></TR>
 {% endfor %}
 </TBODY></TABLE><HR>    <ADDRESS>
