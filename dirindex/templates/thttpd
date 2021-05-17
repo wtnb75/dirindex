@@ -14,10 +14,10 @@
     <pre>
 mode  links    bytes  last-changed  name
     <hr>
-{%- for i in dir|sort(attribute=name) %}
+{%- for i in dir %}
 {{i.stat.st_mode|filemode|truncate(4, True, '')}}{{"%4d"|format(i.stat.st_nlink)}}{{"%12d"|format(i.stat.st_size)}}  {{i.stat.st_mtime|strftime("%b %d %H:%M")}}  <a href="{{i.name}}/">{{i.name}}</a>/
 {%- endfor %}
-{%- for i in file|sort(attribute=name) %}
+{%- for i in file %}
 {{i.stat.st_mode|filemode|truncate(4, True, '')}}{{"%4d"|format(i.stat.st_nlink)}}{{"%12d"|format(i.stat.st_size)}}  {{i.stat.st_mtime|strftime("%b %d %H:%M")}}  <a href="{{i.name}}">{{i.name}}</a>
 {%- endfor %}
     </pre>

@@ -7,10 +7,10 @@
 <body>
 <h1>Directory listing for {{root}}</h1>
 <hr>
-<ul>{% for i in dir|sort(attribute=name) %}
+<ul>{% for i in dir %}
 <li><a href="{{i.name}}/"> {{i.name}}/</a></li>
 {%- endfor %}
-{%- for i in file|sort(attribute=name) %}
+{%- for i in file %}
 <li><a href="{{i.name}}"> {{i.name}}</a></li>
 {%- endfor %}
 </ul>

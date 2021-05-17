@@ -131,9 +131,9 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
         for root, dirs, files in os.walk(directory):
             dirs = pattern_filter(dirs, pattern, hide)
             files = pattern_filter(files, pattern, hide)
-            for d in dirs:
+            for d in sorted(dirs):
                 args["dir"].append(mkent(os.path.join(root, d), directory))
-            for f in files:
+            for f in sorted(files):
                 args["file"].append(mkent(os.path.join(root, f), directory))
         log.debug("output %s / %s arg=%s", directory, filename, args)
         if not dry:
@@ -148,9 +148,9 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
             }
             dirs = pattern_filter(dirs, pattern, hide)
             files = pattern_filter(files, pattern, hide)
-            for d in dirs:
+            for d in sorted(dirs):
                 args["dir"].append(mkent(os.path.join(root, d), root))
-            for f in files:
+            for f in sorted(files):
                 args["file"].append(mkent(os.path.join(root, f), root))
             log.debug("output %s / %s args=%s", root, filename, args)
             if not dry:
@@ -160,7 +160,7 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
         # single directory
         files = os.listdir(directory)
         files = pattern_filter(files, pattern, hide)
-        for f in files:
+        for f in sorted(files):
             ent = mkent(os.path.join(directory, f), directory)
             if stat.S_ISDIR(ent["stat"].st_mode):
                 args["dir"].append(ent)
