@@ -8,7 +8,7 @@
 <td align="center"><font size="+1"><strong>Size</strong></font></td>
 <td align="right"><font size="+1"><strong>Last Modified</strong></font></td>
 </tr>
-{%- for i in dir -%}
+{%- for i in dir|sort(attribute=name) -%}
 {% if loop.index % 2 == 1 %}
 <tr bgcolor="#eeeeee">
 {% else %}
@@ -20,7 +20,7 @@
 <td align="right"><tt>{{i.stat.st_mtime | strftime("%a, %d %b %Y %H:%M:%S %z")}}</tt></td>
 </tr>
 {% endfor %}
-{%- for i in file -%}
+{%- for i in file|sort(attribute=name) -%}
 {% if loop.index % 2 == 1 %}
 <tr bgcolor="#eeeeee">
 {% else %}
