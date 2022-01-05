@@ -31,7 +31,7 @@ jobs:
         context: docker
         file: docker/Dockerfile
         build-args:
-        - tag=${GITHUB_REF##*/}
+        - tag=${{ github.ref_name }}
         tags:
-        - ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
-        - ghcr.io/${GITHUB_REPOSITORY}:latest
+        - ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+        - ghcr.io/${{ github.repository }}:latest
