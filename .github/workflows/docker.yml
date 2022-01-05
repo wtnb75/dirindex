@@ -12,20 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build image
-      run: |
-        BRANCH_TAG=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        docker build docker --tag $IMAGE_NAME --build-arg tag=$BRANCH_TAG
-    - name: login
-      run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: push
-      run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-        [ "$VERSION" == "master" ] && VERSION=latest
-        echo IMAGE_ID=$IMAGE_ID
-        echo VERSION=$VERSION
-        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-        docker push $IMAGE_ID:$VERSION
+    - name: setup qemu
+      uses: docker/setup-qemu-action@v1
+    - name: setup docker buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+    - name: login ghcr.io
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.CR_PAT }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        push: true
+        context: docker
+        file: docker/Dockerfile
+        build-args:
+        - tag=${GITHUB_REF##*/}
+        tags:
+        - ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
+        - ghcr.io/${GITHUB_REPOSITORY}:latest
