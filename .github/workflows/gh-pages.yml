@@ -10,9 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: setup python 3.9
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: "3.9"
     - name: get pip cache
       id: pip-cache
       run: |
