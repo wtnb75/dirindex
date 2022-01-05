@@ -1,4 +1,4 @@
-nose3
+nose
 coverage
 dirimport
 wheel
