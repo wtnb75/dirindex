@@ -1,7 +1,9 @@
 import os
 import sys
 import unittest
+
 from click.testing import CliRunner
+
 from dirindex._cli import cli
 from dirindex.version import VERSION
 
@@ -37,7 +39,7 @@ class Test1(unittest.TestCase):
 
     def testreadrsc2(self):
         result = CliRunner().invoke(cli, args=["read-resource", ".gitignore"])
-        self.assertIn("lib", result.output)
+        self.assertIn("egg-info", result.output)
         self.assertIn("cover", result.output)
 
     @unittest.skipIf(sys.platform.startswith("win"), "Skip Windows")
@@ -52,20 +54,42 @@ class Test1(unittest.TestCase):
             with open("testdir/ignore.txt", "w") as f:
                 f.write("hello world\n")
             runner.invoke(
-                cli, args=["make", "--template", "ls-l", "--filename", "lsl", "."])
+                cli, args=["make", "--template", "ls-l", "--filename", "lsl", "."]
+            )
             with open("lsl") as f:
                 output = f.read()
                 self.assertIn("-rw-r--r--", output)
                 self.assertIn("test.txt", output)
                 self.assertIn("testdir", output)
             runner.invoke(
-                cli, args=["make", "--template", "ls-l", "--filename", "lsl", ".", "--recursive"])
+                cli,
+                args=[
+                    "make",
+                    "--template",
+                    "ls-l",
+                    "--filename",
+                    "lsl",
+                    ".",
+                    "--recursive",
+                ],
+            )
             with open("testdir/lsl") as f:
                 output = f.read()
                 self.assertIn("-rw-r--r--", output)
                 self.assertIn("test2.txt", output)
             runner.invoke(
-                cli, args=["make", "--template", "ls-l", "--filename", "lsl", ".", "--recursive", "--single"])
+                cli,
+                args=[
+                    "make",
+                    "--template",
+                    "ls-l",
+                    "--filename",
+                    "lsl",
+                    ".",
+                    "--recursive",
+                    "--single",
+                ],
+            )
             with open("lsl") as f:
                 output = f.read()
                 self.assertIn("-rw-r--r--", output)
@@ -73,7 +97,20 @@ class Test1(unittest.TestCase):
                 self.assertIn("testdir", output)
                 self.assertIn("testdir/test2.txt", output)
             runner.invoke(
-                cli, args=["make", "--template", "ls-l", "--filename", "lsl", ".", "--recursive", "--single", "--hide", "ignore.*"])
+                cli,
+                args=[
+                    "make",
+                    "--template",
+                    "ls-l",
+                    "--filename",
+                    "lsl",
+                    ".",
+                    "--recursive",
+                    "--single",
+                    "--hide",
+                    "ignore.*",
+                ],
+            )
             with open("lsl") as f:
                 output = f.read()
                 self.assertIn("-rw-r--r--", output)
@@ -82,7 +119,24 @@ class Test1(unittest.TestCase):
                 self.assertIn("testdir/test2.txt", output)
                 self.assertNotIn("ignore", output)
             runner.invoke(
-                cli, args=["make", "--template", "ls-l", "--filename", "lsl", ".", "--recursive", "--single", "--hide", "ignore.*", "--pattern", "*.txt", "--pattern", "testdir"])
+                cli,
+                args=[
+                    "make",
+                    "--template",
+                    "ls-l",
+                    "--filename",
+                    "lsl",
+                    ".",
+                    "--recursive",
+                    "--single",
+                    "--hide",
+                    "ignore.*",
+                    "--pattern",
+                    "*.txt",
+                    "--pattern",
+                    "testdir",
+                ],
+            )
             with open("lsl") as f:
                 output = f.read()
                 self.assertIn("-rw-r--r--", output)

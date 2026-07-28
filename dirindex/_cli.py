@@ -1,15 +1,17 @@
-import sys
-import os
-import stat
 import fnmatch
 import functools
 import io
-import pkgutil
-import time
 import mimetypes
-from logging import getLogger, basicConfig, INFO, DEBUG
+import os
+import pkgutil
+import stat
+import sys
+import time
+from logging import DEBUG, INFO, basicConfig, getLogger
+
 import click
 from jinja2 import Environment
+
 from .version import VERSION
 
 log = getLogger(__name__)
@@ -24,7 +26,7 @@ def cli(ctx):
 
 
 def set_verbose(flag):
-    fmt = '%(asctime)s %(levelname)s %(message)s'
+    fmt = "%(asctime)s %(levelname)s %(message)s"
     if flag:
         basicConfig(level=DEBUG, format=fmt)
     else:
@@ -41,6 +43,7 @@ def multi_options(decs):
         for dec in reversed(decs):
             f = dec(f)
         return f
+
     return deco
 
 
@@ -49,6 +52,7 @@ def cli_option(func):
     def wrap(verbose, *args, **kwargs):
         set_verbose(verbose)
         return func(*args, **kwargs)
+
     return multi_options(_cli_option)(wrap)
 
 
@@ -103,7 +107,11 @@ def openresource(filename, resource_base="templates"):
         return sys.stdin
     elif os.path.exists(filename):
         return fileopen(None, filename, "r")
-    return io.StringIO(pkgutil.get_data(__package__, os.path.join(resource_base, filename)).decode("utf-8"))
+    return io.StringIO(
+        pkgutil.get_data(__package__, os.path.join(resource_base, filename)).decode(
+            "utf-8"
+        )
+    )
 
 
 @cli.command()
@@ -118,13 +126,14 @@ def openresource(filename, resource_base="templates"):
 @click.argument("directory", type=click.Path(dir_okay=True, exists=True))
 def make(template, directory, dry, recursive, single, filename, pattern, hide):
     env = Environment(keep_trailing_newline=True)
-    env.filters['strftime'] = lambda a, b: time.strftime(b, time.localtime(a))
-    env.filters['filemode'] = stat.filemode
+    env.filters["strftime"] = lambda a, b: time.strftime(b, time.localtime(a))
+    env.filters["filemode"] = stat.filemode
     with openresource(template, "templates") as tfp:
         tmpl = env.from_string(tfp.read())
     args = {
         "root": directory,
-        "dir": [], "file": [],
+        "dir": [],
+        "file": [],
     }
     if recursive and single:
         # output single file
@@ -144,7 +153,8 @@ def make(template, directory, dry, recursive, single, filename, pattern, hide):
         for root, dirs, files in os.walk(directory):
             args = {
                 "root": root,
-                "dir": [], "file": [],
+                "dir": [],
+                "file": [],
             }
             dirs = pattern_filter(dirs, pattern, hide)
             files = pattern_filter(files, pattern, hide)
